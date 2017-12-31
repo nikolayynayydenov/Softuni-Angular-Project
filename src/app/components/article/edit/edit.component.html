@@ -1,0 +1,27 @@
+<form (ngSubmit)="handleSubmitChanges(article)">
+    <div class="input-group">
+        <label for="password">Title</label>
+        <input [(ngModel)]="article.title" 
+            type="text" 
+            class="form-control"
+            name="title"
+            id="title">
+    </div>
+    
+    <div class="form-group">
+        <label for="content">Content:</label>
+        <textarea class="form-control" 
+            rows="5" 
+            id="content"
+            name="content"
+            [(ngModel)]="article.content"></textarea>
+    </div>
+    
+    <br>
+    
+    <input type="submit" value="Submit Changes" class="btn btn-primary">
+
+    <br>
+
+    Written on {{article.date | date}} by {{article.createdBy}}
+</form>

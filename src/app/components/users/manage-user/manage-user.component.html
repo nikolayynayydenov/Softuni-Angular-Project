@@ -1,0 +1,36 @@
+<form (ngSubmit)="handleSubmit($event)">
+    <!-- New Password -->
+    <div class="input-group">
+        <label for="username">New Username</label>
+        <input [(ngModel)]="user.username" 
+            type="text" 
+            class="form-control" 
+            name="username"
+            id="username">
+    </div>
+
+    <!-- New Password -->
+    <div class="input-group">
+        <label for="password">New Password</label>
+        <input [(ngModel)]="user.password" 
+            type="password" 
+            class="form-control" 
+            aria-describedby="basic-addon1"
+            name="password"
+            id="password">
+    </div>
+
+    <!-- New Password Confirm -->
+    <div class="input-group">
+        <label for="password_rep">Confirm Password</label>
+        <input [(ngModel)]="user.password_rep" 
+            type="password" 
+            class="form-control"
+            name="password_rep"
+            id="password_rep">
+    </div>
+
+    <br>
+
+    <input type="submit" value="Update Profile" class="btn btn-success">
+</form>
