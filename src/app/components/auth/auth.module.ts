@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms'
 import { authComponents } from './index'
 
 // Services
-import { AuthService } from './../../services/auth.service'
+import { AuthService } from './../../core/services/auth.service'
 
 @NgModule({
     imports: [

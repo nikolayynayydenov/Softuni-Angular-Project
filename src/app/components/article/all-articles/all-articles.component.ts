@@ -1,47 +1,26 @@
-import { Component, OnInit, ViewContainerRef } from '@angular/core';
-import { ArticleService } from './../../../services/article.service'
-import { AuthService } from './../../../services/auth.service'
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
-
+import { Component, OnInit } from '@angular/core';
+import { ArticleService } from './../../../core/services/article.service'
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
     selector: 'app-all-articles',
-    templateUrl: './all-articles.component.html',
-    styleUrls: ['./all-articles.component.css']
+    templateUrl: './all-articles.component.html'
 })
 export class AllArticlesComponent implements OnInit {
-    public articles: Object[]
+    public articles: object[]
 
     constructor(
         private articleService: ArticleService,
-        private authService: AuthService,
-        private toastr: ToastsManager,
-        private vcr: ViewContainerRef
+        public authService: AuthService
     ) {
-        this.articles = []
-        this.toastr.setRootViewContainerRef(vcr)        
+        this.articles = []      
     }
 
     ngOnInit() {
-        this.articleService.getAll().subscribe(res => {
-            this.articles = res
-        })
-    }
-
-    deleteArticle(id, arrIndex) {
-        this.articleService.delete(id).subscribe(res => {
-            if (res.count === 1) {
-                this.toastr.success('Article deleted')
-                    .then(() => {
-                        this.articles.splice(arrIndex, 1)
-                    })
+        this.articleService.getAll().subscribe({
+            next: res => {
+                this.articles = res
             }
-        }, err => {
-            console.log(err)
         })
-    }
-
-    editArticle(article: Object) {
-        article['editMode'] = true
     }
 }

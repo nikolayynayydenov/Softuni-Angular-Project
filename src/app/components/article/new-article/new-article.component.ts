@@ -1,6 +1,6 @@
 import { Component, ViewContainerRef } from '@angular/core';
-import { Article } from './../../../models/input-models/article'
-import { ArticleService } from './../../../services/article.service'
+import { Article } from './../../../core/models/input-models/article'
+import { ArticleService } from './../../../core/services/article.service'
 import { Router } from '@angular/router'
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 

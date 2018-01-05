@@ -1,0 +1,9 @@
+<div *ngFor="let article of articles; let i = index">
+    <app-single-article [article]="article"></app-single-article>
+    
+    <div class="btn-group pull-right" *ngIf="showOptions">
+        <button class="btn btn-warning" (click)="editArticle(article)">Edit</button>
+        <button class="btn btn-danger" (click)="deleteArticle(article._id, i)">Delete</button>
+    </div>
+    <hr>
+</div>

@@ -5,10 +5,12 @@ import {
     Output,
     EventEmitter
 } from '@angular/core';
-import { User } from './../../../models/input-models/user'
-import { AuthService } from './../../../services/auth.service'
+import { User } from './../../../core/models/input-models/user'
+import { AuthService } from './../../../core/services/auth.service'
 import { Router } from '@angular/router'
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { SessionService } from './../../../core/services/session.service'
+import { Observable } from 'rxjs/Observable';
 
 
 @Component({
@@ -24,18 +26,12 @@ export class LoginComponent {
 
     constructor(
         private authService: AuthService,
+        private session: SessionService,
         private router: Router,
         private toastr: ToastsManager,
         private vcr: ViewContainerRef
     ) {
         this.toastr.setRootViewContainerRef(vcr);
-    }
-
-    ngOnDestroy() {
-        if (this.sub$ && typeof this.sub$.unsubscribe === 'function') {
-            this.sub$.unsubscribe()
-            console.log('Unsubscribed') 
-        }
     }
 
     handleSubmit(event): void {
@@ -45,10 +41,14 @@ export class LoginComponent {
                 password: this.user.password
             }).subscribe(res => {
                 const authToken = res._kmd.authtoken
-                sessionStorage.setItem('authToken', authToken)
-                sessionStorage.setItem('userName', res.username)
+
+                this.session.setVal('authToken', authToken)
+                this.session.setVal('userId', res._id)
+                this.session.setVal('userName', res.username)
+
                 this.authService.currentAuthToken = authToken
                 this.authService.currentUser = res
+
                 this.router.navigateByUrl('/article/all')
                     .then(() => {
                         this.toastr.success('Login Successful!')
@@ -64,7 +64,10 @@ export class LoginComponent {
             Boolean(this.user.password)
     }
 
-    get diagnostics() {
-        return JSON.stringify(this.user)
+    ngOnDestroy() {
+        if (this.sub$ && typeof this.sub$.unsubscribe === 'function') {
+            this.sub$.unsubscribe()
+            console.log('Unsubscribed')
+        }
     }
 }

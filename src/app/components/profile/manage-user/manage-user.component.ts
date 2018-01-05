@@ -1,13 +1,12 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
-import { AuthService } from './../../../services/auth.service'
-import { UserService } from './../../../services/user.service'
+import { AuthService } from './../../../core/services/auth.service'
+import { UserService } from './../../../core/services/user.service'
 import { ToastsManager } from 'ng2-toastr';
 import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-manage-user',
-    templateUrl: './manage-user.component.html',
-    styleUrls: ['./manage-user.component.css']
+    templateUrl: './manage-user.component.html'
 })
 
 export class ManageUserComponent implements OnInit {

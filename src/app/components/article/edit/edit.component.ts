@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewContainerRef } from '@angular/core';
-import { ArticleService } from './../../../services/article.service'
+import { ArticleService } from './../../../core/services/article.service'
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 

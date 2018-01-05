@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { User } from './../../../models/input-models/user'
-import { AuthService } from './../../../services/auth.service'
+import { User } from './../../../core/models/input-models/user'
+import { AuthService } from './../../../core/services/auth.service'
 import { ToastsManager } from 'ng2-toastr/ng2-toastr'
 import { ViewContainerRef } from '@angular/core'
 import { Router } from '@angular/router'

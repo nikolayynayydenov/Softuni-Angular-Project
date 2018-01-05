@@ -15,6 +15,7 @@
                     <a routerLink="/article/all">All Articles</a>
                 </li>
             </ul>
+
             <ul class="nav navbar-nav navbar-right" *ngIf="!authService.isUserLogged()">
                 <li>
                     <a routerLink="/login">Login</a>
@@ -23,15 +24,64 @@
                     <a routerLink="/register">Register</a>
                 </li>
             </ul>
+
             <ul class="nav navbar-nav navbar-right" *ngIf="authService.isUserLogged()">
                 <li>
                     <a routerLink="/article/new">New Article</a>
                 </li>
-                <li>
-                    <a routerLink="/user/edit">Manage Profile</a>
-                </li>
-                <li>
-                    <a routerLink="/logout">Logout</a>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="glyphicon glyphicon-user"></span>
+                        <strong>{{userName}}</strong>
+                        <span class="glyphicon glyphicon-chevron-down"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <div class="navbar-login">
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <p class="text-center">
+                                            <span class="glyphicon glyphicon-user icon-size"></span>
+                                        </p>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <p class="text-left">
+                                            <strong>{{userName}}</strong>
+                                        </p>
+                                        <p class="text-left">
+                                            <a routerLink="/profile/edit" class="btn btn-warning btn-block btn-sm">
+                                                Manage Profile
+                                            </a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <div class="navbar-login navbar-login-session">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <p>
+                                            <a routerLink="/profile/articles" class="btn btn-primary btn-block">My articles</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <div class="navbar-login navbar-login-session">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <p>
+                                            <a routerLink="/logout" class="btn btn-danger btn-block">Logout</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
                 </li>
             </ul>
         </div>

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
-import { environment } from './../../environments/environment'
+import { environment } from './../../../environments/environment'
+import {AuthService} from './auth.service'
 
 const host = environment.kinvey.baseUrl
 const appKey = environment.kinvey.appKey
@@ -11,7 +12,9 @@ const url = `${host}/appdata/${appKey}/articles`
 
 @Injectable()
 export class ArticleService {
-    constructor(private http: HttpClient) { }
+    constructor(
+        private http: HttpClient
+    ) { }
 
     addNew(payload: Object): Observable<any> {
         return this.http.post(url, payload, {
@@ -25,6 +28,15 @@ export class ArticleService {
         return this.http.get(url, {
             headers: new HttpHeaders({
                 'Authorization': 'Basic ' + btoa('dummy:dummy')
+            })
+        })
+    }
+
+    getAllFromUser(id: string): Observable<any> {
+        let u = `${url}/?query={"_acl.creator":"${id}"}`
+        return this.http.get(u, {
+            headers: new HttpHeaders({
+                'Authorization': 'Kinvey ' + sessionStorage.getItem('authToken')
             })
         })
     }
