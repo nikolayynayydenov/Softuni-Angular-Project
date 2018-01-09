@@ -3,6 +3,7 @@ import { Article } from './../../../core/models/input-models/article'
 import { ArticleService } from './../../../core/services/article.service'
 import { Router } from '@angular/router'
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
     selector: 'app-new-article',
@@ -12,6 +13,7 @@ import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 export class NewArticleComponent {
     public article: Article
+    private sub$: Subscription
 
     constructor(
         private articleService: ArticleService,
@@ -25,7 +27,7 @@ export class NewArticleComponent {
 
     handleSubmit(event) {
         if (this.articleIsValid()) {
-            this.articleService.addNew({
+            this.sub$ = this.articleService.addNew({
                 title: this.article.title,
                 content: this.article.content,
                 date: new Date(),
@@ -48,7 +50,9 @@ export class NewArticleComponent {
             Boolean(this.article.content)
     }
 
-    get info() {
-        return JSON.stringify(this.article)
+    ngOnDestroy() {
+        if (this.sub$) {
+            this.sub$.unsubscribe()
+        }        
     }
 }

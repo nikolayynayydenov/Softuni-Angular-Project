@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { environment } from './../../../environments/environment'
-import {AuthService} from './auth.service'
+import { AuthService } from './auth.service'
 
 const host = environment.kinvey.baseUrl
 const appKey = environment.kinvey.appKey
@@ -53,15 +53,19 @@ export class ArticleService {
         return this.http.put(url + '/' + id, payload, {
             headers: new HttpHeaders({
                 'Authorization': 'Kinvey ' + sessionStorage.getItem('authToken'),
-                'Content-Type': 'application/json' 
+                'Content-Type': 'application/json'
             })
         })
+    }
+
+    articleBelongsToCurrentUser(article: object): boolean {
+        return article['_acl']['creator'] === sessionStorage.getItem('userId')
     }
 
     getById(id: string): Observable<any> {
         return this.http.get(url + '/' + id, {
             headers: new HttpHeaders({
-                'Authorization': 'Kinvey ' + sessionStorage.getItem('authToken')
+                'Authorization': 'Basic ' + btoa(`dummy:dummy`)
             })
         })
     }

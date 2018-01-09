@@ -3,6 +3,7 @@ import { AuthService } from './../../../core/services/auth.service'
 import { UserService } from './../../../core/services/user.service'
 import { ToastsManager } from 'ng2-toastr';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
     selector: 'app-manage-user',
@@ -11,6 +12,8 @@ import { Router } from '@angular/router';
 
 export class ManageUserComponent implements OnInit {
     public user: Object
+    private sub$: Subscription
+
     constructor(
         private authService: AuthService,
         private userService: UserService,
@@ -27,7 +30,7 @@ export class ManageUserComponent implements OnInit {
 
     handleSubmit(event) {        
         if (this.userIsValid()) {
-            this.userService.update(this.user['_id'], {
+            this.sub$ = this.userService.update(this.user['_id'], {
                 username: this.user['username'],
                 password: this.user['password'],
                 isAdmin: this.authService.currentUser['isAdmin']
@@ -49,5 +52,11 @@ export class ManageUserComponent implements OnInit {
         return Boolean(this.user['username']) &&
             Boolean(this.user['password']) &&
             this.user['password_rep'] === this.user['password']
+    }
+
+    ngOnDestroy() {
+        if (this.sub$) {
+            this.sub$.unsubscribe()
+        }        
     }
 }

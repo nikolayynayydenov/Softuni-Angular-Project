@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ArticleService } from './../../../core/services/article.service'
 import { AuthService } from '../../../core/services/auth.service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
     selector: 'app-manage-own-articles',
@@ -8,6 +9,8 @@ import { AuthService } from '../../../core/services/auth.service';
 })
 export class ManageOwnArticlesComponent implements OnInit {
     public articles: object[]
+    private sub$: Subscription
+
     constructor(
         private articleService: ArticleService,
         private auth: AuthService
@@ -16,7 +19,7 @@ export class ManageOwnArticlesComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.articleService.getAllFromUser(this.auth.currentUser['_id'])
+        this.sub$ = this.articleService.getAllFromUser(this.auth.currentUser['_id'])
             .subscribe({
                 next: res => {
                     this.articles = res
@@ -28,4 +31,9 @@ export class ManageOwnArticlesComponent implements OnInit {
             })
     }
 
+    ngOnDestroy() {
+        if (this.sub$) {
+            this.sub$.unsubscribe()
+        }        
+    }
 }

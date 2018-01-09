@@ -2,6 +2,7 @@
 import { ToastrCustomOptions } from './config/toastr/custom-options'
 import { ToastOptions } from 'ng2-toastr/src/toast-options';
 import { routes } from './app.routing'
+import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
 
 // Modules
 import { BrowserModule } from '@angular/platform-browser';
@@ -14,6 +15,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ArticleModule } from './components/article/article.module'
 import { AuthModule } from './components/auth/auth.module'
 import { ProfileModule } from './components/profile/profile.module'
+import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
+
 
 // Services
 import { AuthService } from './core/services/auth.service'
@@ -35,23 +38,26 @@ import { AllArticlesComponent } from './components/article/all-articles/all-arti
 import { ManageUserComponent } from './components/profile/manage-user/manage-user.component';
 import { ManageOwnArticlesComponent } from './components/article/manage-own-articles/manage-own-articles.component'
 import { ArticlesComponent } from './components/article/articles/articles.component';
+import { NotFoundPageComponent } from './components/common/not-found-page/not-found-page.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         HeaderComponent,
-        HomeComponent
+        HomeComponent,
+        NotFoundPageComponent
     ],
     imports: [
         BrowserModule,
         RouterModule.forRoot(routes),
         ToastModule.forRoot(),
+        Ng4LoadingSpinnerModule.forRoot(),
         BrowserAnimationsModule,
         FormsModule,
         HttpClientModule,
         ArticleModule,
         AuthModule,
-        ProfileModule
+        ProfileModule,
     ],
     providers: [
         AuthService,

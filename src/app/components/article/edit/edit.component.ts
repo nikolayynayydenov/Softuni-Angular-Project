@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewContainerRef } from '@angular/core';
 import { ArticleService } from './../../../core/services/article.service'
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { Subscription } from 'rxjs/Subscription';
 
 
 @Component({
@@ -10,6 +11,7 @@ import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 })
 export class EditComponent {
     @Input() article: Object
+    private sub$: Subscription
 
     constructor(
         private articleService: ArticleService,
@@ -25,7 +27,7 @@ export class EditComponent {
 
     handleSubmitChanges(inputArticle) {
         const id = inputArticle._id
-        this.articleService.getById(id)
+        this.sub$ = this.articleService.getById(id)
             .subscribe(article => {
                 this.articleService.edit(id, {
                     title: inputArticle.title,
@@ -44,5 +46,11 @@ export class EditComponent {
             }, getErr => {
                 this.toastr.error(getErr.error.description)
             })
+    }
+
+    ngOnDestroy() {
+        if (this.sub$) {
+            this.sub$.unsubscribe()
+        }        
     }
 }

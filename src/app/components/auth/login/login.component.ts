@@ -11,17 +11,18 @@ import { Router } from '@angular/router'
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { SessionService } from './../../../core/services/session.service'
 import { Observable } from 'rxjs/Observable';
+import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
+import { Subscription } from 'rxjs/Subscription';
 
 
 @Component({
     selector: 'app-login',
-    templateUrl: './login.component.html',
-    styleUrls: ['./login.component.css']
+    templateUrl: './login.component.html'
 })
 
 export class LoginComponent {
     public user: User = new User('', '')
-    private sub$
+    private sub$: Subscription
     @Output() onReached5 = new EventEmitter<boolean>()
 
     constructor(
@@ -29,7 +30,8 @@ export class LoginComponent {
         private session: SessionService,
         private router: Router,
         private toastr: ToastsManager,
-        private vcr: ViewContainerRef
+        private vcr: ViewContainerRef,
+        private spinnerService: Ng4LoadingSpinnerService,
     ) {
         this.toastr.setRootViewContainerRef(vcr);
     }
@@ -55,6 +57,7 @@ export class LoginComponent {
                     })
             }, errRes => {
                 this.toastr.error('Wrong credentials!')
+            }, () => {
             })
         }
     }
@@ -65,9 +68,8 @@ export class LoginComponent {
     }
 
     ngOnDestroy() {
-        if (this.sub$ && typeof this.sub$.unsubscribe === 'function') {
+        if (this.sub$) {
             this.sub$.unsubscribe()
-            console.log('Unsubscribed')
-        }
+        }        
     }
 }

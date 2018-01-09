@@ -1,5 +1,13 @@
-<h1>{{article.title}}</h1>
+<h1>
+    <a routerLink="/article/{{article._id}}">
+        {{article.title}}
+    </a>
+</h1>
 <div class="lead">
-    {{article.content}}
+    {{article.content | truncate:[limit, '...']}}
+    <br>
+    <a routerLink="/article/{{article._id}}" 
+        class="btn btn-success"
+        *ngIf="article.content.length > limit">Read More</a>
 </div>
 Written on {{article.date | date}} by {{article.createdBy}}

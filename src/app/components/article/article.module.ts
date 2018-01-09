@@ -1,17 +1,31 @@
+// Modules
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { articleComponents } from './index'
-import { ArticleService } from './../../core/services/article.service'
 import { FormsModule } from '@angular/forms';
-import { ArticlesComponent } from './articles/articles.component'
+import { RouterModule } from '@angular/router';
+
+// Components
+import { articleComponents } from './index'
+
+// Services
+import { ArticleService } from './../../core/services/article.service'
+
+// Pipes
+import { TruncatePipe } from './../../core/pipes/truncate.pipe';
+import { ArticleDetailsComponent } from './article-details/article-details.component'
+
+
 
 @NgModule({
     imports: [
         CommonModule,
-        FormsModule
+        FormsModule,
+        RouterModule
     ],
     declarations: [
-        ...articleComponents
+        TruncatePipe,
+        ...articleComponents,
+        ArticleDetailsComponent
     ],
     providers: [
         ArticleService

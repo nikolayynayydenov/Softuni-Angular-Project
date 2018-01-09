@@ -1,0 +1,14 @@
+<div *ngIf="(article | json) != '{}'">
+    <h1 class="text-center">{{article.title}}</h1>
+    <p class="lead">
+        {{article.content}}
+    </p>
+    <hr>
+    <div class="container-fluid">
+        <span>{{article.date | date}}</span>
+        <div class="btn-group pull-right" role="group" *ngIf="articleService.articleBelongsToCurrentUser(article)">
+            <button type="button" class="btn btn-warning">Edit</button>
+            <button type="button" class="btn btn-danger">Delete</button>
+        </div>
+    </div>
+</div>
