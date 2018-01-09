@@ -10,11 +10,19 @@ const url = `${environment.kinvey.baseUrl}/user/${appKey}`
 export class UserService {
     constructor(private http: HttpClient) { }
 
-    update(id: string, payload: Object): Observable<Object> {
+    update(id: string, payload: object): Observable<object> {
         return this.http.put(url + '/' + id, JSON.stringify(payload), {
             headers: new HttpHeaders({
                 'Authorization': 'Kinvey ' + sessionStorage.getItem('authToken'),
                 'Content-Type': 'application/json'
+            })
+        })
+    }
+
+    getAll(): Observable<object> {
+        return this.http.get(url, {
+            headers: new HttpHeaders({
+                'Authorization': 'Kinvey ' + sessionStorage.getItem('authToken')
             })
         })
     }

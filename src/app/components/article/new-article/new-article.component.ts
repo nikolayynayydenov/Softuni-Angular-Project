@@ -7,8 +7,7 @@ import { Subscription } from 'rxjs/Subscription';
 
 @Component({
     selector: 'app-new-article',
-    templateUrl: './new-article.component.html',
-    styleUrls: ['./new-article.component.css']
+    templateUrl: './new-article.component.html'
 })
 
 export class NewArticleComponent {

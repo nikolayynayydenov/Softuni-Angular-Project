@@ -1,6 +1,7 @@
 <div class="jumbotron">
     <h1>Welcome</h1>
-    <p>Welcome to my angular project</p>
+    <p *ngIf="!auth.isUserLogged()">Welcome to my angular project</p>
+    <p *ngIf="auth.isUserLogged()">Welcome {{userName}}</p>
     <p>
         <a class="btn btn-primary btn-lg" routerLink="/article/all">View all articles</a>
     </p>

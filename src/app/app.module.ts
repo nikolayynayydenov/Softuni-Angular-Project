@@ -39,13 +39,15 @@ import { ManageUserComponent } from './components/profile/manage-user/manage-use
 import { ManageOwnArticlesComponent } from './components/article/manage-own-articles/manage-own-articles.component'
 import { ArticlesComponent } from './components/article/articles/articles.component';
 import { NotFoundPageComponent } from './components/common/not-found-page/not-found-page.component';
+import { AllUsersComponent } from './components/user/all-users/all-users.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         HeaderComponent,
         HomeComponent,
-        NotFoundPageComponent
+        NotFoundPageComponent,
+        AllUsersComponent
     ],
     imports: [
         BrowserModule,

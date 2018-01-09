@@ -34,11 +34,9 @@ export class RegisterComponent {
                 password: this.user.password,
                 isAdmin: false
             }).subscribe(res => {
-                if (res._kmd.authtoken) {
+                if (res._kmd.authtoken) {                    
                     this.router.navigateByUrl('/login')
-                        .then(() => {
-                            this.toastr.success('Register successful!')
-                        })
+                    // TODO: add toastr notification                
                 }
             }, errRes => {
                 this.toastr.error(errRes.error.description)

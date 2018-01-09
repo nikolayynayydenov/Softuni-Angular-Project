@@ -51,10 +51,7 @@ export class LoginComponent {
                 this.authService.currentAuthToken = authToken
                 this.authService.currentUser = res
 
-                this.router.navigateByUrl('/article/all')
-                    .then(() => {
-                        this.toastr.success('Login Successful!')
-                    })
+                this.router.navigateByUrl('/')
             }, errRes => {
                 this.toastr.error('Wrong credentials!')
             }, () => {
